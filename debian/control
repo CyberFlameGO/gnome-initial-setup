@@ -51,7 +51,7 @@ Vcs-Git: https://git.launchpad.net/~ubuntu-desktop/ubuntu/+source/gnome-initial-
 Homepage: https://git.gnome.org/browse/gnome-initial-setup/
 
 Package: pop-gnome-initial-setup
-Architecture: amd64
+Architecture: linux-any
 Depends: ${shlibs:Depends},
          libpop-desktop-widget,
          libpop-theme-switcher,
