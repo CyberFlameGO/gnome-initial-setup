@@ -66,31 +66,32 @@ typedef struct {
   const gchar *page_id;
   PreparePage prepare_page_func;
   gboolean new_user_only;
+  gboolean existing_user_only;
   gboolean new_feature;
 } PageData;
 
-#define PAGE(name, new_user_only, new_feature) { #name, gis_prepare_ ## name ## _page, new_user_only, new_feature }
+#define PAGE(name, new_user_only, existing_user_only, new_feature) { #name, gis_prepare_ ## name ## _page, new_user_only, existing_user_only, new_feature }
 
 static PageData page_table[] = {
-  PAGE (language, FALSE, FALSE),
-  PAGE (keyboard, FALSE, FALSE),
-  PAGE (pop_dock, FALSE, TRUE),
-  PAGE (pop_panel, FALSE, TRUE),
-  PAGE (pop_launcher, FALSE, TRUE),
-  PAGE (pop_gesture, FALSE, TRUE),
-  PAGE (pop_extensions, FALSE, TRUE),
-//  PAGE (appearance, FALSE, FALSE),
-  PAGE (network,  FALSE, FALSE),
-  PAGE (privacy,  FALSE, FALSE),
-  PAGE (timezone, FALSE, FALSE),
-  PAGE (goa,      FALSE, FALSE),
-  PAGE (account,  TRUE, FALSE),
-  PAGE (password, TRUE, FALSE),
+  PAGE (language, FALSE, FALSE, FALSE),
+  PAGE (keyboard, FALSE, FALSE, FALSE),
+  PAGE (pop_dock, FALSE, TRUE, TRUE),
+  PAGE (pop_panel, FALSE, TRUE, TRUE),
+  PAGE (pop_launcher, FALSE, TRUE, TRUE),
+  PAGE (pop_gesture, FALSE, TRUE, TRUE),
+  PAGE (pop_extensions, FALSE, TRUE, TRUE),
+  PAGE (appearance, FALSE, TRUE, TRUE),
+  PAGE (network,  FALSE, TRUE, FALSE),
+  PAGE (privacy,  FALSE, TRUE, FALSE),
+  PAGE (timezone, FALSE, TRUE, FALSE),
+  PAGE (goa,      FALSE, TRUE, FALSE),
+  PAGE (account,  TRUE, FALSE, FALSE),
+  PAGE (password, TRUE, FALSE, FALSE),
 #ifdef HAVE_PARENTAL_CONTROLS
-  PAGE (parental_controls, TRUE, FALSE),
-  PAGE (parent_password, TRUE, FALSE),
+  PAGE (parental_controls, TRUE, FALSE, FALSE),
+  PAGE (parent_password, TRUE, FALSE, FALSE),
 #endif
-  PAGE (summary,  FALSE, TRUE),
+  PAGE (summary,  FALSE, FALSE, TRUE),
   { NULL },
 };
 
@@ -219,7 +220,7 @@ rebuild_pages_cb (GisDriver *driver)
       skipped = !page_data->new_feature;
     } else {
       skipped = (page_data->new_user_only && !is_new_user)
-        || (page_data->new_feature && is_new_user)
+        || (page_data->existing_user_only && is_new_user)
         || (should_skip_page (page_data->page_id, skip_pages));
     }
 
