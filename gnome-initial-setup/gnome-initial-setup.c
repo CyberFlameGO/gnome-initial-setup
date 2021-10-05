@@ -219,6 +219,7 @@ rebuild_pages_cb (GisDriver *driver)
       skipped = !page_data->new_feature;
     } else {
       skipped = (page_data->new_user_only && !is_new_user)
+        || (page_data->new_feature && is_new_user)
         || (should_skip_page (page_data->page_id, skip_pages));
     }
 
