@@ -6,5 +6,5 @@
                "right": ["a11y", "keyboard", "aggregateMenu"]
     },
     "stylesheetName": "gnome-shell.css",
-    "themeResourceName": "gdm3-theme.gresource"
+    "themeResourceName": "gdm-theme.gresource"
 }
