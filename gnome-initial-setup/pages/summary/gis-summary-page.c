@@ -188,15 +188,15 @@ log_user_in (GisSummaryPage *page)
 static void
 done_cb (GtkButton *button, GisSummaryPage *page)
 {
-  gis_ensure_stamp_files ();
-
   switch (gis_driver_get_mode (GIS_PAGE (page)->driver))
     {
     case GIS_DRIVER_MODE_NEW_USER:
+      gis_ensure_stamp_files ("yes");
       gis_driver_hide_window (GIS_PAGE (page)->driver);
       log_user_in (page);
       break;
     case GIS_DRIVER_MODE_EXISTING_USER:
+      gis_ensure_stamp_files ("21.04");
       g_application_quit (G_APPLICATION (GIS_PAGE (page)->driver));
     default:
       break;

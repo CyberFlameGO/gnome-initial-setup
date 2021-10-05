@@ -330,12 +330,12 @@ main (int argc, char *argv[])
 }
 
 void
-gis_ensure_stamp_files (void)
+gis_ensure_stamp_files (gchar * done_contents)
 {
   gchar *file = done_path ();
   GError *error = NULL;
 
-  if (!g_file_set_contents (file, "21.04", -1, &error)) {
+  if (!g_file_set_contents (file, done_contents, -1, &error)) {
       g_warning ("Unable to create %s: %s", file, error->message);
       g_clear_error (&error);
   }
