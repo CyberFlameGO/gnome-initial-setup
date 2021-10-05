@@ -253,9 +253,6 @@ const int CHECK_UPGRADE = 1;
 const int CHECK_EXIT = 2;
 
 int initial_setup_check () {
-  // System accounts like the installer have a UID below 1000. Bail on these.
-  if (getuid () < 1000) return CHECK_EXIT;
-
   g_autofree gchar *path = done_path ();
   g_autofree gchar *output = NULL;
 
