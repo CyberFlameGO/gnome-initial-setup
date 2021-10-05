@@ -380,8 +380,10 @@ has_switchable_graphics ()
 
   // Limit showing switchable graphics page to System76 models
   vendor = get_system_vendor ();
-  is_system76 = strcmp (trim (vendor), "System76") == 0;
-  free (vendor);
+  if (vendor != NULL) {
+      is_system76 = strcmp (trim (vendor), "System76") == 0;
+      free (vendor);
+  }
 
   return switchable && is_system76;
 }
